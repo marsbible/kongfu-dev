@@ -5,7 +5,7 @@ RUN yum -y install git sudo rpm-build && yum -y install make && yum -y install c
     yum -y install openssl-devel bzip2-devel libffi-devel sqlite-devel zlib-devel && \
     debuginfo-install -y glibc && \
     yum install -y rh-python36 && echo "source /opt/rh/rh-python36/enable" >> ~/.bashrc && source ~/.bashrc && \
-    curl -fsSL https://rpm.nodesource.com/setup_14.x | bash - && yum -y install nodejs && \
+    curl -fsSL https://rpm.nodesource.com/setup_10.x | bash - && yum -y install nodejs && \
     npm install -g yarn electron-builder
 
 RUN yum install -y kde-l10n-Chinese && yum reinstall -y glibc-common && localedef -c -f GB18030 -i zh_CN zh_CN.GB18030
