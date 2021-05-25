@@ -10,7 +10,7 @@ RUN yum -y install sudo rpm-build && yum -y install make && \
     npm install -g yarn electron-builder
 
 RUN yum install -y kde-l10n-Chinese && yum reinstall -y glibc-common && localedef -c -f GB18030 -i zh_CN zh_CN.GB18030
-RUN yum install -y http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm && yum -y install cmake3
+RUN yum install -y http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm && yum -y install cmake3 && ln -s /usr/bin/cmake3 /usr/bin/cmake
 RUN pip3 install pipenv && pip3 install -q compdb
 RUN yum -y clean all
 
