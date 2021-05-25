@@ -15,6 +15,12 @@ RUN yum install -y kde-l10n-Chinese && yum reinstall -y glibc-common && localede
     pip3 install pipenv && pip3 install -q compdb && \
     yum -y clean all
 
+RUN npm config set registry https://registry.npm.taobao.org && \
+    npm config set puppeteer_download_host https://npm.taobao.org/mirrors && \
+    npm config set electron_mirror https://npm.taobao.org/mirrors/electron/ && \
+    npm config set sass-binary-site https://npm.taobao.org/mirrors/node-sass && \
+    npm config set npm_config_disturl=https://npm.taobao.org/mirrors/atom-shell
+
 ENV PATH=/opt/rh/devtoolset-8/root/usr/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LANG=en_US.UTF-8
 ENV BASH_ENV=~/.bashrc  \
