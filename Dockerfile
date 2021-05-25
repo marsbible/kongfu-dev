@@ -9,10 +9,11 @@ RUN yum -y install sudo rpm-build && yum -y install make && \
     curl -fsSL https://rpm.nodesource.com/setup_10.x | bash - && yum -y install nodejs && \
     npm install -g yarn electron-builder
 
-RUN yum install -y kde-l10n-Chinese && yum reinstall -y glibc-common && localedef -c -f GB18030 -i zh_CN zh_CN.GB18030
-RUN yum install -y http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm && yum -y install cmake3 && ln -s /usr/bin/cmake3 /usr/bin/cmake
-RUN pip3 install pipenv && pip3 install -q compdb
-RUN yum -y clean all
+RUN yum install -y kde-l10n-Chinese && yum reinstall -y glibc-common && localedef -c -f GB18030 -i zh_CN zh_CN.GB18030 && \
+    yum install -y http://repo.okay.com.mx/centos/7/x86_64/release/okay-release-1-1.noarch.rpm && \
+    yum -y install cmake3 && ln -s /usr/bin/cmake3 /usr/bin/cmake && \
+    pip3 install pipenv && pip3 install -q compdb && \
+    yum -y clean all
 
 ENV PATH=/opt/rh/devtoolset-8/root/usr/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LANG=en_US.UTF-8
