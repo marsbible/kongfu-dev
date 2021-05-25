@@ -15,6 +15,17 @@ RUN yum install -y kde-l10n-Chinese && yum reinstall -y glibc-common && localede
     pip3 install pipenv && pip3 install -q compdb && \
     yum -y clean all
 
+RUN cd /root && curl -fsSL https://ftp.gnu.org/gnu/glibc/glibc-2.20.tar.gz  | tar xzf - 
+RUN cd /root && curl -fsSL https://github.com/clangd/clangd/releases/download/12.0.0/clangd-linux-12.0.0.zip -o clangd-linux-12.0.0.zip 
+RUN cd /root && curl -fsSL https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/p/patchelf-0.12-1.el7.x86_64.rpm -o patchelf.rpm \
+    && rpm -ivh patchelf.rpm
+
+RUN cd /root/glibc-2.20 && mkdir build && cd build && ../configure --prefix=/opt/glibc-2.20 && make && make install \
+    && unzip /root/clangd-linux-12.0.0.zip -d /usr/local \
+    && ln -s /usr/local/clangd_12.0.0/bin/clangd  /usr/bin/clangd \
+    && patchelf --set-interpreter /opt/glibc-2.20/lib/ld-linux-x86-64.so.2 --set-rpath /opt/glibc-2.20/lib:/usr/lib64 /usr/local/clangd_12.0.0/bin/clangd \
+    && rm -fr /root/*
+
 RUN npm config set registry https://registry.npm.taobao.org && \
     npm config set puppeteer_download_host https://npm.taobao.org/mirrors && \
     npm config set electron_mirror https://npm.taobao.org/mirrors/electron/ && \
