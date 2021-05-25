@@ -20,7 +20,7 @@ RUN cd /root && curl -fsSL https://github.com/clangd/clangd/releases/download/12
 RUN cd /root && curl -fsSL https://download-ib01.fedoraproject.org/pub/epel/7/x86_64/Packages/p/patchelf-0.12-1.el7.x86_64.rpm -o patchelf.rpm \
     && rpm -ivh patchelf.rpm
 
-RUN cd /root/glibc-2.20 && mkdir build && cd build && ../configure --prefix=/opt/glibc-2.20 && make && make install \
+RUN cd /root/glibc-2.20 && source ~/.bashrc && mkdir build && cd build && ../configure --prefix=/opt/glibc-2.20 && make && make install \
     && unzip /root/clangd-linux-12.0.0.zip -d /usr/local \
     && ln -s /usr/local/clangd_12.0.0/bin/clangd  /usr/bin/clangd \
     && patchelf --set-interpreter /opt/glibc-2.20/lib/ld-linux-x86-64.so.2 --set-rpath /opt/glibc-2.20/lib:/usr/lib64 /usr/local/clangd_12.0.0/bin/clangd \
