@@ -1,8 +1,8 @@
 FROM centos:7
-RUN yum -y install git sudo rpm-build && yum -y install make && yum -y install centos-release-scl && \
+RUN yum -y install sudo rpm-build && yum -y install make && yum -y install centos-release-scl && \
     yum -y install devtoolset-8-gcc devtoolset-8-gcc-c++ devtoolset-8-binutils && \
     echo "source /opt/rh/devtoolset-8/enable" >> /etc/profile && echo "source /opt/rh/devtoolset-8/enable" >> ~/.bashrc && source ~/.bashrc && \
-    yum -y install openssl-devel bzip2-devel libffi-devel sqlite-devel zlib-devel && \
+    yum -y install git openssl-devel bzip2-devel libffi-devel sqlite-devel zlib-devel && \
     debuginfo-install -y glibc && \
     yum install -y rh-python36 && echo "source /opt/rh/rh-python36/enable" >> ~/.bashrc && source ~/.bashrc && \
     curl -fsSL https://rpm.nodesource.com/setup_10.x | bash - && yum -y install nodejs && \
