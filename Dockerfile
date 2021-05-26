@@ -2,10 +2,12 @@ FROM centos:7
 RUN yum -y install sudo rpm-build && yum -y install make && \
     yum -y install https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm && yum -y install centos-release-scl && \
     yum -y install devtoolset-8-gcc devtoolset-8-gcc-c++ devtoolset-8-binutils && \
-    echo "source /opt/rh/devtoolset-8/enable" >> /etc/profile && echo "source /opt/rh/devtoolset-8/enable" >> ~/.bashrc && source ~/.bashrc && \
+    echo "if [ \"\$(gcc -dumpversion 2> /dev/null)\" = \"\" ]; then " >> ~/.bashrc && echo "source /opt/rh/devtoolset-8/enable" >> ~/.bashrc && \
+    echo "fi" >> ~/.bashrc && source ~/.bashrc && \
     yum -y install git vim openssl-devel bzip2-devel libffi-devel sqlite-devel zlib-devel && \
     debuginfo-install -y glibc && \
-    yum install -y rh-python36 && echo "source /opt/rh/rh-python36/enable" >> ~/.bashrc && source ~/.bashrc && \
+    yum install -y rh-python36 && echo "if [ \"\$(python3.6 --version 2> /dev/null)\" = \"\" ]; then " >> ~/.bashrc && \
+    echo "source /opt/rh/rh-python36/enable" >> ~/.bashrc && echo "fi" >> ~/.bashrc && source ~/.bashrc && \
     curl -fsSL https://rpm.nodesource.com/setup_10.x | bash - && yum -y install nodejs && \
     npm install -g yarn electron-builder
 
@@ -32,7 +34,6 @@ RUN npm config set registry https://registry.npm.taobao.org && \
     npm config set sass-binary-site https://npm.taobao.org/mirrors/node-sass && \
     npm config set npm_config_disturl=https://npm.taobao.org/mirrors/atom-shell
 
-ENV PATH=/opt/rh/devtoolset-8/root/usr/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 ENV LANG=en_US.UTF-8
 ENV BASH_ENV=~/.bashrc  \
     ENV=~/.bashrc  \
