@@ -6,7 +6,7 @@ RUN yum -y install sudo rpm-build && yum -y install make && \
     echo "fi" >> ~/.bashrc && source ~/.bashrc && \
     yum -y install git vim openssl-devel bzip2-devel libffi-devel sqlite-devel zlib-devel && \
     debuginfo-install -y glibc && \
-    yum install -y rh-python36 && echo "if [ \"\$(python3.6 --version 2> /dev/null)\" = \"\" ]; then " >> ~/.bashrc && \
+    yum install -y rh-python36 && echo "if [ \"\$(python3.6 --version 2> /dev/null)\" != \"Python 3.6.12\" ]; then " >> ~/.bashrc && \
     echo "source /opt/rh/rh-python36/enable" >> ~/.bashrc && echo "fi" >> ~/.bashrc && source ~/.bashrc && \
     curl -fsSL https://rpm.nodesource.com/setup_10.x | bash - && yum -y install nodejs && \
     npm install -g yarn electron-builder
